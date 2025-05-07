@@ -3,17 +3,32 @@
 if (! function_exists('array_export')) {
     /**
      * var_export but with extra steps to remove traditional array displaying
-     * @link https://gist.github.com/Bogdaan/ffa287f77568fcbb4cffa0082e954022
      *
      * @see var_export()
      */
-    function array_export(array $expression): string
+    function array_export(array $array, $indentationLevel = 0): string
     {
-        $export = var_export($expression, true);
-        $export = preg_replace('/^([ ]*)(.*)/m', '$1$1$2', $export);
-        $array = preg_split("/\r\n|\n|\r/", $export);
-        $array = preg_replace(["/\s*array\s\($/", "/\)(,)?$/", "/\s=>\s$/"], [null, ']$1', ' => ['], $array);
+        $indent = str_repeat('    ', $indentationLevel); // Use 4 spaces for indentation
+        $output = "[\n";
+        $elements = [];
+        foreach ($array as $key => $value) {
+            $keyString = is_string($key) ? $indent."    '".addslashes($key)."' => " : $indent.'    ';
+            if (is_array($value)) {
+                $elements[] = $keyString.array_export($value, $indentationLevel + 1);
+            } elseif (is_string($value)) {
+                $elements[] = $keyString."'".addslashes($value)."'";
+            } elseif (is_bool($value)) {
+                $elements[] = $keyString.($value ? 'true' : 'false');
+            } elseif (is_int($value) || is_float($value)) {
+                $elements[] = $keyString.$value;
+            } elseif (is_null($value)) {
+                $elements[] = $keyString.'null';
+            } else {
+                $elements[] = $keyString.var_export($value, true);
+            }
+        }
+        $output .= implode(",\n", $elements)."\n".$indent.']';
 
-        return implode(PHP_EOL, array_filter(['['] + $array));
+        return $output;
     }
 }

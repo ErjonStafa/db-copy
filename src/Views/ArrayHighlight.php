@@ -14,11 +14,12 @@ class ArrayHighlight extends Component
     {
         ini_set('highlight.string', '#880000');
         ini_set('highlight.keyword', '#444444');
-        ini_set('highlight.default', '#444444');
+        ini_set('highlight.default', '#669955');
+        ini_set('highlight.int', '#669955');
 
         $html = highlight_string(
             "<?php\n".
-            'return '.array_export(array_values($this->array)).
+            'return '.array_export($this->array).
             ';',
             return: true
         );
