@@ -27,6 +27,17 @@
                 "Erjon\\DbCopy\\Providers\\DbCopyServiceProvider"
             ]
         }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "@check-dev-mode"
+        ],
+        "post-update-cmd": [
+            "@check-dev-mode"
+        ],
+        "check-dev-mode": [
+            "php -r \"if (!getenv('COMPOSER_DEV_MODE')) { echo 'This package can only be installed with the --dev option.'; exit(1); }\""
+        ]
     }
 }
 

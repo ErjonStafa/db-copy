@@ -706,8 +706,8 @@
   position: relative;
   display: inline-flex;
   list-style-type: none;
-  border-top-left-radius: var(--radius-md);
-  border-top-right-radius: var(--radius-md);
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
   background-color: var(--color-slate-200);
   padding-inline: calc(var(--spacing) * 1.5);
   padding-block: calc(var(--spacing) * 1.5);
@@ -717,7 +717,7 @@
   width: auto;
   min-width: calc(var(--spacing) * 20);
   cursor: pointer;
-  border-radius: var(--radius-md);
+  border-radius: 0.25rem;
   padding-inline: calc(var(--spacing) * 1.5);
   padding-block: calc(var(--spacing) * 1.5);
   text-align: center;
