@@ -1,0 +1,170 @@
+@import "tailwindcss";
+/* Preline UI */
+
+@source "./../views/";
+
+@plugin "@tailwindcss/forms";
+
+
+/* Adds pointer cursor to buttons */
+@layer base {
+    button:not(:disabled),
+    [role="button"]:not(:disabled) {
+        cursor: pointer;
+    }
+}
+
+/* Defaults hover styles on all devices */
+@custom-variant hover (&:hover);
+
+
+/**
+ * Custom tailwind attributes
+ */
+
+@theme {
+    --shadow-equal: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+    /**
+     * The light cyan colors, except for light-cyan-300, were generated were generated using Gemini. Pretty cool!
+     *
+     * The exact command was as below:
+     * "Can you generate tailwind colors with the name light-cyan using this color '#cce8e7' as light-cyan-300"
+     */
+    --color-light-cyan-50: #f7fafa;
+    --color-light-cyan-100: #f0f9f8;
+    --color-light-cyan-200: #e0f2f1;
+    --color-light-cyan-300: #cce8e7;
+    --color-light-cyan-400: #a7d1cf;
+    --color-light-cyan-500: #82bab7;
+    --color-light-cyan-600: #67a19e;
+    --color-light-cyan-700: #4c8885;
+    --color-light-cyan-800: #316f6c;
+    --color-light-cyan-900: #165653;
+
+    /** Tooltip show animation */
+    --animate-show-tooltip: tooltip-show 0.5s ease-in-out;
+
+    @keyframes tooltip-show {
+        from {
+            visibility: visible;
+        }
+        to {
+            visibility: hidden;
+        }
+    }
+}
+
+
+/**
+ * Components
+ */
+
+
+/* Card styles */
+.card {
+    @apply bg-white border border-gray-200 shadow-2xs rounded-xl;
+}
+
+.card-image {
+    @apply w-full h-auto rounded-t-xl;
+}
+
+.card-body {
+    @apply px-3 py-1 md:px-4 md:py-2;
+}
+
+
+/**
+ * Styles below are inspired by
+ * Material Web by Google [https://github.com/material-components/material-web].
+ * Since the repository is in maintenance and the future of it is unknown, I started creating my own components
+ */
+
+
+/** Button styles */
+
+@utility button-borderless {
+    @apply border-none outline-none ring-0 px-4 py-2 rounded-full;
+}
+
+.button-elevated {
+    @apply button-borderless shadow-equal bg-light-cyan-50 text-light-cyan-700;
+}
+
+.button-filled {
+    @apply button-borderless bg-light-cyan-700 text-white;
+}
+
+.button-tonal {
+    @apply button-borderless bg-light-cyan-300 text-light-cyan-700 font-medium;
+}
+
+.button-outlined {
+    @apply border-none outline-1 outline-light-cyan-700 ring-0 px-4 py-2 rounded-full bg-light-cyan-100 text-light-cyan-700 font-medium;
+    @apply hover:bg-light-cyan-200 hover:text-light-cyan-800 hover:outline-light-cyan-600;
+
+    &.active{
+        @apply bg-light-cyan-300 text-light-cyan-800 outline-light-cyan-600;
+    }
+}
+
+.button-text {
+    @apply button-borderless bg-transparent text-light-cyan-700 font-medium;
+    @apply hover:bg-light-cyan-300;
+}
+
+.button-clipboard {
+    @apply p-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs;
+    @apply hover:bg-gray-50;
+    @apply focus:outline-hidden focus:bg-gray-50;
+    @apply disabled:opacity-50 disabled:pointer-events-none;
+}
+
+/** Chip styles */
+.chip-set {
+    @apply flex flex-wrap gap-2;
+}
+
+.chip {
+    @apply bg-transparent border border-gray-500/85 rounded px-3 py-1.5 text-slate-700;
+    @apply hover:bg-light-cyan-200 hover:text-[#051f1f];
+
+    &.active {
+        @apply bg-light-cyan-300 text-[#051f1f] border-0;
+    }
+
+    &.active .chip-icon::before {
+        content: "✓";
+    }
+
+    &:disabled {
+        @apply opacity-50 cursor-not-allowed;
+    }
+}
+
+
+/** Spinner styles */
+.spinner {
+    @apply animate-spin size-6 border-3 border-current border-t-transparent text-cyan-600 rounded-full;
+}
+
+/**
+ * Tooltip styles
+ */
+
+.tooltip {
+    @apply absolute z-10 px-2 py-1 text-xs font-medium text-white bg-gray-800 rounded-lg shadow-md invisible;
+    @apply top-[120%] left-1/2 transform -translate-x-1/2;
+}
+
+[data-toggle="tooltip"].tooltip-shown .tooltip {
+    @apply animate-show-tooltip;
+}
+
+/**
+ * Tabs styles
+ */
+
+.tab-list {
+    @apply relative flex flex-wrap px-1.5 py-1.5 list-none rounded-md bg-slate-100;
+}
