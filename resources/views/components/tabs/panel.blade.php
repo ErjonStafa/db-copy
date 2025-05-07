@@ -1,5 +1,5 @@
 <div
-     {{ $attributes->merge(['role' => 'tabpanel']) }}
+     {{ $attributes->merge(['class' => 'tab-panel '.(($active ?? false) ? 'active' : '')]) }}
 >
     {{ $slot }}
 </div>

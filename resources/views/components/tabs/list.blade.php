@@ -3,7 +3,7 @@
         {{ $tabs }}
     </ul>
 
-    <div class="p-5">
+    <div>
         {{ $slot }}
     </div>
 </div>

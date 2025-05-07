@@ -16,6 +16,10 @@ class TableData extends Component
 
     public $show = false;
 
+    public $showArray = true;
+
+    public $showJson = false;
+
     #[On('change-table-and-columns')]
     public function changeTableAndColumns(string $table, array $columns = []): void
     {
@@ -43,6 +47,18 @@ class TableData extends Component
     public function makeItAsJson(Collection $data): string
     {
         return $data->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    }
+
+    public function showDataAsArray(): void
+    {
+        $this->showArray = true;
+        $this->showJson = false;
+    }
+
+    public function showDataAsJson(): void
+    {
+        $this->showJson = true;
+        $this->showArray = false;
     }
 
     public function render()

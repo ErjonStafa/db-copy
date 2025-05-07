@@ -166,5 +166,24 @@
  */
 
 .tab-list {
-    @apply relative flex flex-wrap px-1.5 py-1.5 list-none rounded-md bg-slate-100;
+    @apply relative inline-flex px-1.5 py-1.5 list-none rounded-t-md bg-slate-200;
+}
+
+.tab-list .tab {
+    @apply relative px-1.5 py-1.5 text-sm font-medium text-slate-700 rounded-md cursor-pointer w-auto min-w-20 text-center;
+    @apply hover:bg-slate-200;
+    @apply transition-all ease-in-out transform;
+
+    &.active {
+        @apply bg-slate-50;
+    }
+}
+
+.tab-panel {
+    @apply hidden;
+    @apply transition-all ease-in-out;
+
+    &.active {
+        @apply block;
+    }
 }
