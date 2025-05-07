@@ -2,18 +2,17 @@
 
 namespace Erjon\DbCopy\Views;
 
-use Illuminate\Support\Collection;
 use Illuminate\View\Component;
 
 class JsonHighlight extends Component
 {
     public function __construct(
-        public ?Collection $data,
+        public ?string $jsonData,
     ) {}
 
     public function generateHtml()
     {
-        return \Erjon\DbCopy\Highlight\JsonHighlight::highlight_string($this->data?->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        return \Erjon\DbCopy\Highlight\JsonHighlight::highlight_string($this->jsonData);
     }
 
     /**

@@ -13,7 +13,7 @@
             <x-array-highlight :array="$dataAsArray"/>
         </x-dbcopy::tabs.panel>
         <x-dbcopy::tabs.panel :active="$showJson">
-            <x-json-highlight :data="$data"/>
+            <x-json-highlight :json-data="$dataAsJson"/>
         </x-dbcopy::tabs.panel>
     </x-dbcopy::tabs.list>
 </div>
