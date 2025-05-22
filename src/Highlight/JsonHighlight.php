@@ -5,7 +5,7 @@ namespace Erjon\DbCopy\Highlight;
 class JsonHighlight
 {
     /**
-     * Inspired by from brzuchal/json-highlighter
+     * Check out the terminal highlighter by brzuchal/json-highlighter
      *
      * @link https://github.com/brzuchal/json-highlighter/tree/1.0
      */

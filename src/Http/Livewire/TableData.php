@@ -28,7 +28,7 @@ class TableData extends Component
         $this->show = true;
     }
 
-    public function queryData(): Collection
+    protected function queryData(): Collection
     {
         if (empty($this->table) || empty($this->columns)) {
             return collect([]);
@@ -37,24 +37,30 @@ class TableData extends Component
         return $this->data = \DB::table($this->table)->select($this->columns)->get();
     }
 
-    public function makeItAsArray(Collection $data): array
+    protected function makeItAsArray(Collection $data): array
     {
         return $data->map(function ($item) {
             return (array) $item;
         })->toArray();
     }
 
-    public function makeItAsJson(Collection $data): string
+    protected function makeItAsJson(Collection $data): string
     {
         return $data->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     }
 
+    /**
+     * Triggered by selecting the Array tab
+     */
     public function showDataAsArray(): void
     {
         $this->showArray = true;
         $this->showJson = false;
     }
 
+    /**
+     * Triggered by selecting the JSON tab
+     */
     public function showDataAsJson(): void
     {
         $this->showJson = true;

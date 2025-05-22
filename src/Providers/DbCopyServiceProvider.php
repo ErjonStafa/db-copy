@@ -40,17 +40,12 @@ class DbCopyServiceProvider extends ServiceProvider
 
     protected function bootRoutes(): void
     {
-        Route::group([
-            'prefix'     => config('db_copy.route_path'),
-            'middleware' => 'web',
-        ], function () {
-            $this->loadRoutesFrom(__DIR__.'/../Routes/web.php');
-        });
+        $this->loadRoutesFrom(__DIR__.'/../Routes/web.php');
     }
 
     protected function handleViews(): void
     {
-        $this->loadViewsFrom(__DIR__.'/../../resources/views', 'dbcopy');
+        $this->loadViewsFrom(__DIR__.'/../Resources/views', 'dbcopy');
 
         \Blade::component('array-highlight', ArrayHighlight::class);
         \Blade::component('json-highlight', JsonHighlight::class);

@@ -5,7 +5,7 @@
         </p>
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4"><!-- Select table start -->
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4"><!-- Select database table start -->
         @foreach($tables as $table)
             <livewire:dbcopy::table-card
                 wire:key="{{ $table.'-'.$selectedTable }}"
@@ -13,15 +13,15 @@
                 :selected="$selectedTable == $table"
             />
         @endforeach
-    </div><!-- Select table end -->
+    </div><!-- Select database table end -->
 
     @if($selectedTable)
         <div class="mt-5">
             <h3 class="text-lg font-bold text-slate-700">{{ strtoupper($selectedTable.' Columns') }}</h3>
         </div>
 
-        <div class="chip-set mt-3"> <!-- Column selector start -->
-            @foreach($tableColumns as $column)
+        <div class="chip-set mt-3"> <!-- Column filter start -->
+            @foreach($selectedTableColumns as $column)
                 <x-dbcopy::chip
                     id="chip-{{ $column }}"
                     class="inline-flex relative {{ (in_array($column, $selectedColumns) ? 'active' : '') }}"
@@ -37,7 +37,7 @@
                     <span>{{ $column }}</span>
                 </x-dbcopy::chip> <!-- Single column end -->
             @endforeach
-        </div> <!-- Column selector end -->
+        </div> <!-- Column filter end -->
     @endif
 
     <!-- Show selected database table data -->

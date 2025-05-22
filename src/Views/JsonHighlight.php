@@ -21,8 +21,9 @@ class JsonHighlight extends Component
      */
     public function render()
     {
-        return view('dbcopy::components.json-highlight', [
+        return view('dbcopy::components.code', [
             'html' => $this->generateHtml(),
+            'type' => 'json',
         ]);
     }
 }

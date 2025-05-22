@@ -35,8 +35,9 @@ class ArrayHighlight extends Component
      */
     public function render()
     {
-        return view('dbcopy::components.array-highlight', [
+        return view('dbcopy::components.code', [
             'html' => $this->generateHtml(),
+            'type' => 'array',
         ]);
     }
 }

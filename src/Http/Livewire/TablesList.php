@@ -21,6 +21,9 @@ class TablesList extends Component
             ->getTableListing();
     }
 
+    /**
+     * Handles table clicking
+     */
     #[On('changeSelectedTable')]
     public function changeSelectedTable($tableName): void
     {
@@ -37,6 +40,12 @@ class TablesList extends Component
         $this->generateData();
     }
 
+    /**
+     * Handles column filtering
+     *
+     * @param $column
+     * @return void
+     */
     public function toggleSelectedColumns($column): void
     {
         if (in_array($column, $this->selectedColumns)) {
@@ -56,12 +65,11 @@ class TablesList extends Component
     }
 
     /**
-     * Dispatch an event to the component that displays the table data
-     * @see TableData::changeTableAndColumns()
+     * Dispatch an event to the component that displays the table data to change the information
      *
-     * @return void
+     * @see TableData::changeTableAndColumns()
      */
-    public function generateData(): void
+    protected function generateData(): void
     {
         $this->dispatch('change-table-and-columns', table: $this->selectedTable, columns: array_values($this->selectedColumns))
             ->to(TableData::class);
@@ -70,15 +78,13 @@ class TablesList extends Component
     public function render()
     {
         $tables = $this->getTableNames();
-        $tableColumns = $this->getSelectedTableColumns();
+        $selectedTableColumns = $this->getSelectedTableColumns();
 
-        return view('dbcopy::tables-list.__livewire.tables-list', compact('tables', 'tableColumns'));
+        return view('dbcopy::tables-list.__livewire.tables-list', compact('tables', 'selectedTableColumns'));
     }
-
 
     /**
      * Shows on the first load
-     *
      */
     public function placeholder()
     {

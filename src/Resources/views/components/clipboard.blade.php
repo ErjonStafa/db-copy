@@ -17,13 +17,17 @@
 </button>
 
 @script
-    <script>
-        new ClipboardJS('#{{ $id }}').on('success', function(e) {
+<script>
+    let clipboards = document.querySelectorAll('.button-clipboard');
+
+    clipboards.forEach(clipboard => {
+        new ClipboardJS('#'+clipboard.getAttribute('id')).on('success', function(e) {
             e.clearSelection();
             e.trigger.classList.add('tooltip-shown');
             setTimeout(() => {
                 e.trigger.classList.remove('tooltip-shown');
             }, 500)
         });
-    </script>
+    })
+</script>
 @endscript

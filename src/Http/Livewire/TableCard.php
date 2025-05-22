@@ -16,6 +16,12 @@ class TableCard extends Component
         $this->selected = $selected;
     }
 
+    /**
+     * Triggered by clicking the table card
+     *
+     * @param $tableName
+     * @return void
+     */
     public function selectThisTable($tableName): void
     {
         $this->dispatch('changeSelectedTable', tableName: $tableName)
