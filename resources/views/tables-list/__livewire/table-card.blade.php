@@ -4,12 +4,12 @@
     wire:click="selectThisTable('{{ $tableName }}')"
 > <!-- Card start -->
     <div class="flex justify-between align-middle items-stretch"> <!-- Title start -->
-        <h3 class="text-lg text-slate-600 font-semibold">
+        <h3 class="text-lg text-light-cyan-900 font-semibold">
             {{ $tableName }}
         </h3>
     </div><!-- Title end -->
 
-    <hr class="bg-slate-500 text-slate-500 mb-2"> <!-- Divider -->
+    <hr class="bg-light-cyan-700 text-light-cyan-700 mb-2"> <!-- Divider -->
 
     <!-- Card body start -->
     <p class="text-slate-600">

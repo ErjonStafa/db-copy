@@ -3,6 +3,7 @@
 namespace Erjon\DbCopy\Views;
 
 use Illuminate\View\Component;
+use Erjon\DbCopy\Highlight\JsonHighlight as Highlighter;
 
 class JsonHighlight extends Component
 {
@@ -10,9 +11,9 @@ class JsonHighlight extends Component
         public ?string $jsonData,
     ) {}
 
-    public function generateHtml()
+    public function generateHtml(): string
     {
-        return \Erjon\DbCopy\Highlight\JsonHighlight::highlight_string($this->jsonData);
+        return Highlighter::highlight_string($this->jsonData);
     }
 
     /**

@@ -1,13 +1,19 @@
 <div class="mt-5">
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+    <div class="mb-2">
+        <p class="text-2xl text-light-cyan-900 font-semibold uppercase">
+            Copy table
+        </p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4"><!-- Select table start -->
         @foreach($tables as $table)
             <livewire:dbcopy::table-card
                 wire:key="{{ $table.'-'.$selectedTable }}"
                 :name="$table"
                 :selected="$selectedTable == $table"
-            /> <!-- Select table -->
+            />
         @endforeach
-    </div>
+    </div><!-- Select table end -->
 
     @if($selectedTable)
         <div class="mt-5">
@@ -34,7 +40,8 @@
         </div> <!-- Column selector end -->
     @endif
 
-    <div class="mt-5">
+    <!-- Show selected database table data -->
+    <div class="mt-5 @if(! $selectedTable) hidden @endif">
         <livewire:dbcopy::table-data/>
     </div>
 </div>
