@@ -2,13 +2,16 @@
 
 namespace Erjon\DbCopy\Http\Livewire;
 
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\WithoutUrlPagination;
+use Livewire\WithPagination;
 
 class TableData extends Component
 {
-    public $data;
+    use WithoutUrlPagination, WithPagination;
 
     public $columns = [];
 
@@ -20,6 +23,16 @@ class TableData extends Component
 
     public $showJson = false;
 
+    public $perPage;
+
+    protected $rowLimitForPerformance;
+
+    public function __construct()
+    {
+        $this->rowLimitForPerformance = config('db_copy.paginate_if_there_are_more_than');
+        $this->perPage = config('db_copy.per_page');
+    }
+
     #[On('change-table-and-columns')]
     public function changeTableAndColumns(string $table, array $columns = []): void
     {
@@ -28,24 +41,38 @@ class TableData extends Component
         $this->show = true;
     }
 
-    protected function queryData(): Collection
+    protected function onlyQuery()
+    {
+        return \DB::table($this->table)
+            ->select($this->columns);
+    }
+
+    protected function queryData(): LengthAwarePaginator|Collection
     {
         if (empty($this->table) || empty($this->columns)) {
             return collect([]);
         }
 
-        return $this->data = \DB::table($this->table)->select($this->columns)->get();
+        if ($this->onlyQuery()->count() <= $this->rowLimitForPerformance) {
+            return $this->onlyQuery()->get();
+        }
+
+        return $this->perPage ? $this->onlyQuery()->paginate($this->perPage) : $this->onlyQuery()->get();
     }
 
-    protected function makeItAsArray(Collection $data): array
+    protected function makeItAsArray(LengthAwarePaginator|Collection $data): array
     {
         return $data->map(function ($item) {
             return (array) $item;
         })->toArray();
     }
 
-    protected function makeItAsJson(Collection $data): string
+    protected function makeItAsJson(LengthAwarePaginator|Collection $data): string
     {
+        if ($data instanceof LengthAwarePaginator) {
+            return $data->getCollection()->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        }
+
         return $data->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     }
 
@@ -67,12 +94,31 @@ class TableData extends Component
         $this->showArray = false;
     }
 
+//    public function downloadPhpArray()
+//    {
+//        $data = $this->makeItAsArray($this->onlyQuery()->get());
+//        $filename = $this->table.'.php';
+//        return response()->streamDownload(function () use ($data) {
+//            echo '<?php'.PHP_EOL.PHP_EOL.'return '.array_export($data).';';
+//        }, $filename);
+//    }
+//
+//    public function downloadJsonFile()
+//    {
+//        $data = $this->makeItAsJson($this->onlyQuery()->get());
+//        $filename = $this->table.'.json';
+//
+//        return response()->streamDownload(function () use ($data) {
+//            echo $data;
+//        }, $filename);
+//    }
+
     public function render()
     {
-        $data = $this->queryData();
-        $dataAsArray = $this->makeItAsArray($data);
-        $dataAsJson = $this->makeItAsJson($data);
+        $tableData = $this->queryData();
+        $dataAsArray = $this->makeItAsArray($tableData);
+        $dataAsJson = $this->makeItAsJson($tableData);
 
-        return view('dbcopy::tables-list.__livewire.table-data', compact('data', 'dataAsArray', 'dataAsJson'));
+        return view('dbcopy::tables-list.__livewire.table-data', compact('tableData', 'dataAsArray', 'dataAsJson'));
     }
 }

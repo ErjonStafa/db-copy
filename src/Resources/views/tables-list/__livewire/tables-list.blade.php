@@ -1,7 +1,7 @@
-<div class="mt-5">
-    <div class="mb-2">
-        <p class="text-2xl text-light-cyan-900 font-semibold uppercase">
-            Copy table
+<div class="mb-10">
+    <div class="mb-5 text-center">
+        <p class="text-2xl text-light-cyan-900 text-center font-semibold uppercase">
+            Copy table data
         </p>
     </div>
 
@@ -42,6 +42,7 @@
 
     <!-- Show selected database table data -->
     <div class="mt-5 @if(! $selectedTable) hidden @endif">
-        <livewire:dbcopy::table-data/>
+        <livewire:dbcopy::table-data lazy/>
     </div>
+    <div id="scroll-position"></div>
 </div>

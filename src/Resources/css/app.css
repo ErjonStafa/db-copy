@@ -1,5 +1,4 @@
 @import "tailwindcss";
-/* Preline UI */
 
 @source "./../views/";
 
@@ -180,10 +179,23 @@
 }
 
 .tab-panel {
-    @apply hidden;
+    @apply hidden shadow-inner;
     @apply transition-all ease-in-out;
 
     &.active {
         @apply block;
     }
+}
+
+* {
+    scrollbar-width: auto;
+    scrollbar-color: oklch(var(--color-slate-200)) oklch(var(--color-light-cyan-500)) !important;
+}
+
+::-webkit-scrollbar-track {
+    background: oklch(var(--color-slate-200));
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: oklch(var(--color-light-cyan-500));
 }

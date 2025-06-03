@@ -20,4 +20,14 @@ return [
      * Url path to where the user is redirected back
      */
     'fallback_url' => '/',
+
+    /**
+     * For performance reasons you can change how many rows can be displayed without pagination being active.
+     */
+    'paginate_if_there_are_more_than' => 100,
+
+    /**
+     * Change how many rows are displayed in pagination
+     */
+    'per_page' => 100,
 ];
