@@ -1,8 +1,9 @@
 <x-dbcopy::card
-    class="hover:bg-slate-200 hover:scale-105 transition-all ease-in cursor-pointer col-span-1"
-    style="{{ $selected?'border-color: var(--color-green-600);':'' }}"
+    class="hover:bg-slate-200 hover:scale-105 transition-all ease-in cursor-pointer col-span-1 focus:outline-green-400 {{ $selected?'border-green-600':'' }}"
     wire:click="selectThisTable('{{ $tableName }}')"
-    onclick="document.querySelector('#scroll-position').scrollIntoView({ behavior: 'smooth' })"
+    tabindex="0"
+    role="button"
+    onkeydown="event.key === 'Enter' ? document.activeElement.click() : null"
 > <!-- Card start -->
     <div> <!-- Title start -->
         <h3 class="text-lg break-all text-light-cyan-900 font-semibold text-center">
@@ -17,8 +18,8 @@
         <span class="text-lg">Columns</span>
         <span class="text-2xl">{{ $columnCount }}</span>
     </div>
-    <div class="flex flex-col text-center bg-emerald-100 text-emerald-600 rounded-lg mb-3 p-3 font-[550]">
-        <span class="text-xl">Rows</span>
+    <div class="flex flex-col text-center bg-emerald-100/70 text-emerald-800 rounded-lg mb-3 p-3 font-[550]">
+        <span class="text-lg">Rows</span>
         <span class="text-2xl">{{ $rowCount }}</span>
     </div>
     <!-- Card body end -->

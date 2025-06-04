@@ -7,13 +7,12 @@
     <meta name="csrf_token" value="{{ csrf_token() }}"/>
 
     <link rel="stylesheet" href="{{ asset('vendor/erjon/css/app.css') }}">
-    @livewireStyles
 </head>
 <body class="bg-gradient-to-r from-light-cyan-100/40 to-light-cyan-100/80">
     <!-- Back button start -->
-    <a href="{{ config('db_copy.fallback_url') }}" class="button-borderless text-light-cyan-600 font-semibold hover:text-light-cyan-800 text-3xl transform ease-in-out inline-flex">
+    <a href="{{ config('db_copy.fallback_url') }}" class="button-borderless text-light-cyan-800/90 font-semibold hover:text-light-cyan-900 focus:text-light-cyan-900 text-3xl transform ease-in-out inline-flex">
         <i>
-            <svg width="28" height="24" viewBox="0 0 28 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="28" height="24" viewBox="0 0 28 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Long arrow left icon">
                 <!-- Self-generated path. Numbers can be tweaked to get whatever you desire -->
                 <!-- https://www.w3schools.com/graphics/svg_path.asp -->
                 <path d="M23 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/> <!-- Horizontal line -->
@@ -36,6 +35,5 @@
 {{--    <script src="{{ asset('vendor/erjon/js/clipboard.min.js') }}"></script>--}}
     <script defer="defer" src="{{ asset('vendor/erjon/js/app.js') }}"></script>
     @stack('scripts')
-    @livewireScripts
 </body>
 </html>

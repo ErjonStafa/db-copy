@@ -42,7 +42,7 @@
 
     <!-- Show selected database table data -->
     <div class="mt-5 @if(! $selectedTable) hidden @endif">
-        <livewire:dbcopy::table-data lazy/>
+        <livewire:dbcopy::table-data/>
     </div>
     <div id="scroll-position"></div>
 </div>

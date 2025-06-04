@@ -7,13 +7,13 @@
       "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
+    --color-green-400: oklch(79.2% 0.209 151.711);
     --color-green-600: oklch(62.7% 0.194 149.214);
     --color-emerald-100: oklch(95% 0.052 163.051);
-    --color-emerald-600: oklch(59.6% 0.145 163.225);
+    --color-emerald-800: oklch(43.2% 0.095 166.913);
     --color-cyan-600: oklch(60.9% 0.126 221.723);
     --color-blue-300: oklch(80.9% 0.105 251.813);
     --color-blue-600: oklch(54.6% 0.245 262.881);
-    --color-slate-50: oklch(98.4% 0.003 247.858);
     --color-slate-200: oklch(92.9% 0.013 255.508);
     --color-slate-500: oklch(55.4% 0.046 257.417);
     --color-slate-700: oklch(37.2% 0.044 257.287);
@@ -36,8 +36,6 @@
     --text-base--line-height: calc(1.5 / 1);
     --text-lg: 1.125rem;
     --text-lg--line-height: calc(1.75 / 1.125);
-    --text-xl: 1.25rem;
-    --text-xl--line-height: calc(1.75 / 1.25);
     --text-2xl: 1.5rem;
     --text-2xl--line-height: calc(2 / 1.5);
     --text-3xl: 1.875rem;
@@ -420,8 +418,14 @@
   .border-gray-300 {
     border-color: var(--color-gray-300);
   }
-  .bg-emerald-100 {
-    background-color: var(--color-emerald-100);
+  .border-green-600 {
+    border-color: var(--color-green-600);
+  }
+  .bg-emerald-100\/70 {
+    background-color: color-mix(in srgb, oklch(95% 0.052 163.051) 70%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-emerald-100) 70%, transparent);
+    }
   }
   .bg-gray-200 {
     background-color: var(--color-gray-200);
@@ -431,6 +435,12 @@
   }
   .bg-light-cyan-100 {
     background-color: var(--color-light-cyan-100);
+  }
+  .bg-light-cyan-200\/85 {
+    background-color: color-mix(in srgb, #e0f2f1 85%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-light-cyan-200) 85%, transparent);
+    }
   }
   .bg-light-cyan-300 {
     background-color: var(--color-light-cyan-300);
@@ -509,10 +519,6 @@
     font-size: var(--text-sm);
     line-height: var(--tw-leading, var(--text-sm--line-height));
   }
-  .text-xl {
-    font-size: var(--text-xl);
-    line-height: var(--tw-leading, var(--text-xl--line-height));
-  }
   .leading-5 {
     --tw-leading: calc(var(--spacing) * 5);
     line-height: calc(var(--spacing) * 5);
@@ -539,8 +545,8 @@
   .text-blue-600 {
     color: var(--color-blue-600);
   }
-  .text-emerald-600 {
-    color: var(--color-emerald-600);
+  .text-emerald-800 {
+    color: var(--color-emerald-800);
   }
   .text-gray-500 {
     color: var(--color-gray-500);
@@ -548,14 +554,17 @@
   .text-gray-700 {
     color: var(--color-gray-700);
   }
-  .text-light-cyan-600 {
-    color: var(--color-light-cyan-600);
-  }
   .text-light-cyan-700 {
     color: var(--color-light-cyan-700);
   }
   .text-light-cyan-800 {
     color: var(--color-light-cyan-800);
+  }
+  .text-light-cyan-800\/90 {
+    color: color-mix(in srgb, #316f6c 90%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      color: color-mix(in oklab, var(--color-light-cyan-800) 90%, transparent);
+    }
   }
   .text-light-cyan-900 {
     color: var(--color-light-cyan-900);
@@ -641,9 +650,9 @@
       color: var(--color-gray-500);
     }
   }
-  .hover\:text-light-cyan-800 {
+  .hover\:text-light-cyan-900 {
     &:hover {
-      color: var(--color-light-cyan-800);
+      color: var(--color-light-cyan-900);
     }
   }
   .focus\:z-10 {
@@ -656,10 +665,20 @@
       border-color: var(--color-blue-300);
     }
   }
+  .focus\:text-light-cyan-900 {
+    &:focus {
+      color: var(--color-light-cyan-900);
+    }
+  }
   .focus\:ring {
     &:focus {
       --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
       box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    }
+  }
+  .focus\:outline-green-400 {
+    &:focus {
+      outline-color: var(--color-green-400);
     }
   }
   .focus\:outline-none {
@@ -831,6 +850,15 @@
   &:hover {
     outline-color: var(--color-light-cyan-600);
   }
+  &:focus {
+    background-color: var(--color-light-cyan-200);
+  }
+  &:focus {
+    color: var(--color-light-cyan-800);
+  }
+  &:focus {
+    outline-color: var(--color-light-cyan-600);
+  }
   &.active {
     background-color: var(--color-light-cyan-300);
     color: var(--color-light-cyan-800);
@@ -852,6 +880,9 @@
   font-weight: var(--font-weight-medium);
   color: var(--color-light-cyan-700);
   &:hover {
+    background-color: var(--color-light-cyan-300);
+  }
+  &:focus {
     background-color: var(--color-light-cyan-300);
   }
 }
@@ -916,6 +947,12 @@
   &:hover {
     color: #051f1f;
   }
+  &:focus {
+    background-color: var(--color-light-cyan-200);
+  }
+  &:focus {
+    color: #051f1f;
+  }
   &.active {
     border-style: var(--tw-border-style);
     border-width: 0px;
@@ -971,7 +1008,10 @@
   list-style-type: none;
   border-top-left-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
-  background-color: var(--color-slate-200);
+  background-color: color-mix(in srgb, #e0f2f1 85%, transparent);
+  @supports (color: color-mix(in lab, red, red)) {
+    background-color: color-mix(in oklab, var(--color-light-cyan-200) 85%, transparent);
+  }
   padding-inline: calc(var(--spacing) * 1.5);
   padding-block: calc(var(--spacing) * 1.5);
 }
@@ -989,8 +1029,8 @@
   --tw-font-weight: var(--font-weight-medium);
   font-weight: var(--font-weight-medium);
   color: var(--color-slate-700);
-  &:hover {
-    background-color: var(--color-slate-200);
+  &:focus-visible {
+    outline-color: var(--color-light-cyan-500);
   }
   transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
   transition-property: all;
@@ -999,7 +1039,7 @@
   --tw-ease: var(--ease-in-out);
   transition-timing-function: var(--ease-in-out);
   &.active {
-    background-color: var(--color-slate-50);
+    background-color: var(--color-white);
   }
 }
 .tab-panel {

@@ -30,6 +30,7 @@ class TablesList extends Component
         if ($this->selectedTable === $tableName) {
             // Unselect if selected
             $this->selectedTable = null;
+            $this->generateData();
 
             return;
         }
