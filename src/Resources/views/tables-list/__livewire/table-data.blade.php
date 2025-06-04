@@ -1,5 +1,5 @@
 <div>
-    <div class="mt-5 @if(! $show) hidden @endif">
+    <div id="unique-id" class="mt-5 @if(! $show) hidden @endif">
         <x-dbcopy::tabs.list>
             <x-slot:tabs> <!-- Data format selector start -->
                 <x-dbcopy::tabs.tab :active="$showArray" wire:click="showDataAsArray">
@@ -25,3 +25,13 @@
         </div>
     </div>
 </div>
+
+@script
+<script>
+    Livewire.on('scroll-to-view', () => {
+        setTimeout(() => {
+            document.querySelector('#unique-id')?.scrollIntoView({behavior: 'smooth'})
+        }, 100)
+    })
+</script>
+@endscript

@@ -62,6 +62,11 @@
 /* Card styles */
 .card {
     @apply bg-white border border-gray-200 shadow-2xs rounded-xl;
+    /*@apply focus:border-green-400 focus-visible:outline-green-400;*/
+
+    /*&.active {*/
+    /*    @apply border-green-600*/
+    /*}*/
 }
 
 .card-image {
@@ -100,7 +105,7 @@
 
 .button-outlined {
     @apply border-none outline-1 outline-light-cyan-700 ring-0 px-4 py-2 rounded-full bg-light-cyan-100 text-light-cyan-700 font-medium;
-    @apply hover:bg-light-cyan-200 hover:text-light-cyan-800 hover:outline-light-cyan-600;
+    @apply hover:bg-light-cyan-200 hover:text-light-cyan-800 hover:outline-light-cyan-600 focus:bg-light-cyan-200 focus:text-light-cyan-800 focus:outline-light-cyan-600;
 
     &.active{
         @apply bg-light-cyan-300 text-light-cyan-800 outline-light-cyan-600;
@@ -109,7 +114,7 @@
 
 .button-text {
     @apply button-borderless bg-transparent text-light-cyan-700 font-medium;
-    @apply hover:bg-light-cyan-300;
+    @apply hover:bg-light-cyan-300 focus:bg-light-cyan-300;
 }
 
 .button-clipboard {
@@ -126,7 +131,7 @@
 
 .chip {
     @apply bg-transparent border border-gray-500/85 rounded px-3 py-1.5 text-slate-700;
-    @apply hover:bg-light-cyan-200 hover:text-[#051f1f];
+    @apply hover:bg-light-cyan-200 hover:text-[#051f1f] focus:bg-light-cyan-200 focus:text-[#051f1f];
 
     &.active {
         @apply bg-light-cyan-300 text-[#051f1f] border-0;
@@ -165,16 +170,16 @@
  */
 
 .tab-list {
-    @apply relative inline-flex px-1.5 py-1.5 list-none rounded-t bg-slate-200;
+    @apply relative inline-flex px-1.5 py-1.5 list-none rounded-t bg-light-cyan-200/85;
 }
 
 .tab-list .tab {
     @apply relative px-1.5 py-1.5 text-sm font-medium text-slate-700 rounded cursor-pointer w-auto min-w-20 text-center;
-    @apply hover:bg-slate-200;
+    @apply focus-visible:outline-light-cyan-500;
     @apply transition-all ease-in-out transform;
 
     &.active {
-        @apply bg-slate-50;
+        @apply bg-white;
     }
 }
 

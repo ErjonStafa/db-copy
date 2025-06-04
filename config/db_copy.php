@@ -24,10 +24,10 @@ return [
     /**
      * For performance reasons you can change how many rows can be displayed without pagination being active.
      */
-    'paginate_if_there_are_more_than' => 100,
+    'paginate_if_there_are_more_than' => 50,
 
     /**
      * Change how many rows are displayed in pagination
      */
-    'per_page' => 100,
+    'per_page' => 50,
 ];

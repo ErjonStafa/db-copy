@@ -34,11 +34,16 @@ class TableData extends Component
     }
 
     #[On('change-table-and-columns')]
-    public function changeTableAndColumns(string $table, array $columns = []): void
+    public function changeTableAndColumns(?string $table, array $columns = []): void
     {
         $this->table = $table;
         $this->columns = $columns;
-        $this->show = true;
+        $needsToScrollIntoView = (bool) ($this->table && ! $this->show);
+        $this->show = ! is_null($this->table) && ! empty($this->columns);
+
+        if ($needsToScrollIntoView) {
+            $this->dispatch('scroll-to-view');
+        }
     }
 
     protected function onlyQuery()
@@ -94,24 +99,24 @@ class TableData extends Component
         $this->showArray = false;
     }
 
-//    public function downloadPhpArray()
-//    {
-//        $data = $this->makeItAsArray($this->onlyQuery()->get());
-//        $filename = $this->table.'.php';
-//        return response()->streamDownload(function () use ($data) {
-//            echo '<?php'.PHP_EOL.PHP_EOL.'return '.array_export($data).';';
-//        }, $filename);
-//    }
-//
-//    public function downloadJsonFile()
-//    {
-//        $data = $this->makeItAsJson($this->onlyQuery()->get());
-//        $filename = $this->table.'.json';
-//
-//        return response()->streamDownload(function () use ($data) {
-//            echo $data;
-//        }, $filename);
-//    }
+    /*public function downloadPhpArray()
+    {
+        $data = $this->makeItAsArray($this->onlyQuery()->get());
+        $filename = $this->table.'.php';
+        return response()->streamDownload(function () use ($data) {
+            echo '<?php'.PHP_EOL.PHP_EOL.'return '.array_export($data).';';
+        }, $filename);
+    }*/
+
+    /*public function downloadJsonFile()
+    {
+        $data = $this->makeItAsJson($this->onlyQuery()->get());
+        $filename = $this->table.'.json';
+
+        return response()->streamDownload(function () use ($data) {
+            echo $data;
+        }, $filename);
+    }*/
 
     public function render()
     {
