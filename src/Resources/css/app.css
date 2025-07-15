@@ -42,6 +42,8 @@
 
     /** Tooltip show animation */
     --animate-show-tooltip: tooltip-show 0.5s ease-in-out;
+    --animate-show-toastr: show-toastr 5s linear forwards;
+    --animate-show-toastr-time-bar: show-toastr-time-bar 5s linear forwards;
 
     @keyframes tooltip-show {
         from {
@@ -50,6 +52,18 @@
         to {
             visibility: hidden;
         }
+    }
+
+    @keyframes show-toastr {
+        0%, 100% { display: none;}
+        10%, 90% { display: inherit;}
+        95% {transform: translateY(0)}
+        100% {transform: translateY(-100%)}
+    }
+
+    @keyframes show-toastr-time-bar {
+        0% { width: 100%}
+        100% {width: 0}
     }
 }
 
@@ -203,4 +217,26 @@
 
 ::-webkit-scrollbar-thumb {
     background-color: oklch(var(--color-light-cyan-500));
+}
+
+
+
+/* Icons */
+
+.icon-warning {
+    &:before {
+        content: "\26A0"
+    }
+}
+
+.icon-check {
+    &:before {
+        content: "✓"
+    }
+}
+
+.icon-error {
+    &:before {
+        content: "\2613"
+    }
 }

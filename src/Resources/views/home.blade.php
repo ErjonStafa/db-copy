@@ -31,6 +31,7 @@
             <livewire:dbcopy::tables-list lazy="on-load"/>
         </div>
     </main>
+    <livewire:dbcopy::notifications/>
 
 {{--    <script src="{{ asset('vendor/erjon/js/clipboard.min.js') }}"></script>--}}
     <script defer="defer" src="{{ asset('vendor/erjon/js/app.js') }}"></script>

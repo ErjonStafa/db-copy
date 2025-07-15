@@ -49,7 +49,8 @@ class TableData extends Component
     protected function onlyQuery()
     {
         return \DB::table($this->table)
-            ->select($this->columns);
+            ->select($this->columns)
+            ->customQuery();
     }
 
     protected function queryData(): LengthAwarePaginator|Collection

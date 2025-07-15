@@ -18,9 +18,6 @@ class TableCard extends Component
 
     /**
      * Triggered by clicking the table card
-     *
-     * @param $tableName
-     * @return void
      */
     public function selectThisTable($tableName): void
     {

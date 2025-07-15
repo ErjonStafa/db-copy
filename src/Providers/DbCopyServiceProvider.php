@@ -2,12 +2,14 @@
 
 namespace Erjon\DbCopy\Providers;
 
+use Blade;
+use Erjon\DbCopy\Http\Livewire\Notifications;
 use Erjon\DbCopy\Http\Livewire\TableCard;
 use Erjon\DbCopy\Http\Livewire\TableData;
 use Erjon\DbCopy\Http\Livewire\TablesList;
 use Erjon\DbCopy\Views\ArrayHighlight;
 use Erjon\DbCopy\Views\JsonHighlight;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 
@@ -20,6 +22,7 @@ class DbCopyServiceProvider extends ServiceProvider
         $this->bootRoutes();
         $this->livewireComponents();
         $this->publishAssets();
+        $this->customQueryMacro();
     }
 
     public function register(): void
@@ -47,8 +50,8 @@ class DbCopyServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(__DIR__.'/../Resources/views', 'dbcopy');
 
-        \Blade::component('array-highlight', ArrayHighlight::class);
-        \Blade::component('json-highlight', JsonHighlight::class);
+        Blade::component('array-highlight', ArrayHighlight::class);
+        Blade::component('json-highlight', JsonHighlight::class);
     }
 
     protected function livewireComponents(): void
@@ -58,6 +61,8 @@ class DbCopyServiceProvider extends ServiceProvider
         Livewire::component('dbcopy::table-card', TableCard::class);
 
         Livewire::component('dbcopy::table-data', TableData::class);
+
+        Livewire::component('dbcopy::notifications', Notifications::class);
     }
 
     public function publishAssets(): void
@@ -65,5 +70,15 @@ class DbCopyServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../../public' => public_path('vendor/erjon'),
         ], 'db-copy');
+    }
+
+    private function customQueryMacro(): void
+    {
+        Builder::macro('customQuery', function () {
+            $this->beforeQuery(config('db_copy.query_builder'));
+            $this->applyBeforeQueryCallbacks();
+
+            return $this;
+        });
     }
 }

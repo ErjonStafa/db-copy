@@ -1,10 +1,12 @@
 <?php
 
+use Illuminate\Database\Query\Builder;
+
 return [
     /**
      * Url path to the page that copies the database tables
      */
-    'url_path'   => 'db/copy',
+    'url_path' => 'db/copy',
 
     /**
      * Middlewares for url_path
@@ -30,4 +32,11 @@ return [
      * Change how many rows are displayed in pagination
      */
     'per_page' => 50,
+
+    /**
+     * Apply a custom query to filter data
+     */
+    'query_builder' => function (Builder $query) {
+        //
+    },
 ];

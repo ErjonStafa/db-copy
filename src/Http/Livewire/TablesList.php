@@ -2,6 +2,7 @@
 
 namespace Erjon\DbCopy\Http\Livewire;
 
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -16,9 +17,16 @@ class TablesList extends Component
 
     protected function getTableNames(): array
     {
-        return DB::connection()
-            ->getSchemaBuilder()
-            ->getTableListing();
+        try {
+            return DB::connection()
+                ->getSchemaBuilder()
+                ->getTableListing();
+        } catch (QueryException) {
+            $this->dispatch('notify', type: 'warning', message: 'Failed to connect to database.')
+                ->to(Notifications::class);
+
+            return [];
+        }
     }
 
     /**
@@ -60,9 +68,18 @@ class TablesList extends Component
 
     public function getSelectedTableColumns(): array
     {
-        return \DB::connection()
-            ->getSchemaBuilder()
-            ->getColumnListing($this->selectedTable);
+        try {
+            return DB::connection()
+                ->getSchemaBuilder()
+                ->getColumnListing($this->selectedTable);
+        } catch (QueryException) {
+            /**
+             * It's ignored because if the connection doesn't work, it is already handled before
+             *
+             * @see getTableNames
+             */
+            return [];
+        }
     }
 
     /**

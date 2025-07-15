@@ -2,3 +2,5 @@ parameters:
 	level: 4
 	paths:
 		- src
+	ignoreErrors:
+	    - '#Call to static method [.w]+() on an unknown class [a-zA-Z0-9\\_]+.#'
